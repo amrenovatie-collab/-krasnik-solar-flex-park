@@ -3,13 +3,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://krasniksolarflexpark.pl"),
-  title: "Kraśnik Solar Flex Park",
-  description:
-    "One-page inwestorski dla koncepcji PV + BESS w regionie Kraśnika, na etapie pre-development i organizacji SPV.",
+  title: "Kraśnik Solar Flex Park | PV + BESS",
+  description: "Etapowy projekt fotowoltaiki i magazynu energii w regionie Kraśnika.",
   openGraph: {
-    title: "Kraśnik Solar Flex Park",
-    description:
-      "Projekt PV + BESS w województwie lubelskim na etapie pre-development.",
+    title: "Kraśnik Solar Flex Park | PV + BESS",
+    description: "Etapowy projekt fotowoltaiki i magazynu energii w regionie Kraśnika.",
     locale: "pl_PL",
     type: "website",
     images: [

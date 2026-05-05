@@ -1,8 +1,16 @@
 # Kraśnik Solar Flex Park
 
-One-page inwestorski dla koncepcji projektu PV + BESS w regionie Kraśnika. Strona jest przygotowana w Next.js, TypeScript i Tailwind CSS.
+Produkcyjna strona one-page dla projektu **Kraśnik Solar Flex Park**: etapowego projektu PV + BESS w regionie Kraśnika, województwo lubelskie.
 
-Projekt komunikowany jest jako etap pre-development, ze strukturą SPV w organizacji. Treści celowo nie deklarują finansowania, pozwoleń, przyłącza ani rozpoczętej budowy.
+Projekt komunikowany jest ostrożnie jako etap pre-development: analiza lokalizacji, rozmowy dotyczące zabezpieczenia gruntu, przygotowanie ścieżki przyłączeniowej, finansowanie pre-development oraz SPV w organizacji. Treść strony nie deklaruje gotowego finansowania, pozwoleń, przyłącza, rozpoczętej budowy, finalnej decyzji inwestycyjnej ani zatwierdzonych mocy.
+
+## Stack
+
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- `next/image`
+- `lucide-react`
 
 ## Uruchomienie
 
@@ -11,18 +19,17 @@ npm install
 npm run dev
 ```
 
-Strona lokalnie będzie dostępna pod adresem `http://localhost:3000`.
+Adres lokalny: `http://localhost:3000`
 
-## Build produkcyjny
+## Build
 
 ```bash
 npm run build
-npm run start
 ```
 
 ## Struktura
 
-- `app/layout.tsx` - metadane i główny layout aplikacji
-- `app/page.tsx` - treść i sekcje one-page
-- `app/globals.css` - style globalne i klasy pomocnicze
-- `public/images/` - assety wizualne strony
+- `app/layout.tsx` - metadata, język strony i layout root
+- `app/page.tsx` - kompletna strona one-page
+- `app/globals.css` - style globalne, utility i motyw premium dark
+- `public/images/` - lokalne obrazy używane przez `next/image`

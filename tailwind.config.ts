@@ -5,14 +5,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        carbon: "#0d1110",
-        graphite: "#151918",
-        field: "#88a36a",
-        copper: "#c99a57",
-        mineral: "#d7e2d5"
+        night: "#020617",
+        ink: "#030712",
+        panel: "#07111f",
+        emeraldGlow: "#22c55e",
+        skyGlow: "#38bdf8"
       },
       boxShadow: {
-        soft: "0 20px 70px rgba(0, 0, 0, 0.24)"
+        glow: "0 0 44px rgba(34, 197, 94, 0.18)",
+        blueGlow: "0 0 44px rgba(56, 189, 248, 0.14)"
       },
       fontFamily: {
         sans: [

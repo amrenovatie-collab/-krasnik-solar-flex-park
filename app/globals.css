@@ -139,7 +139,8 @@ a {
 
 .feature-card,
 .premium-card,
-.timeline-card {
+.timeline-card,
+.image-card {
   border-radius: 0.5rem;
   border: 1px solid rgb(148 163 184 / 0.14);
   background:
@@ -171,6 +172,18 @@ a {
   padding: 1.5rem;
 }
 
+.hero-photo-panel {
+  position: relative;
+  min-height: min(62svh, 640px);
+  overflow: hidden;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(74 222 128 / 0.22);
+  background: #07111f;
+  box-shadow:
+    0 0 80px rgb(34 197 94 / 0.16),
+    0 30px 90px rgb(0 0 0 / 0.36);
+}
+
 .premium-card {
   position: relative;
   overflow: hidden;
@@ -197,6 +210,23 @@ a {
   min-height: 17rem;
 }
 
+.image-card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.image-card:hover {
+  border-color: rgb(74 222 128 / 0.38);
+  box-shadow:
+    0 0 54px rgb(34 197 94 / 0.16),
+    0 24px 80px rgb(0 0 0 / 0.32);
+  transform: translateY(-2px);
+}
+
 @media (min-width: 640px) {
   .section-heading {
     font-size: 3.25rem;
@@ -206,5 +236,9 @@ a {
 @media (min-width: 1024px) {
   .section-shell {
     padding: 7rem 2rem;
+  }
+
+  .hero-photo-panel {
+    min-height: 620px;
   }
 }

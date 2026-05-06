@@ -1,13 +1,12 @@
 import Image from "next/image";
 import {
+  ArrowDown,
   ArrowRight,
   BatteryCharging,
   Building2,
-  CheckCircle2,
   Factory,
   LandPlot,
   Leaf,
-  Lightbulb,
   Mail,
   MapPin,
   Network,
@@ -16,12 +15,21 @@ import {
   ShieldCheck,
   SunMedium,
   TrendingUp,
+  UsersRound,
   Zap
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 const contactHref =
   "mailto:adrian@krasniksolarflexpark.pl?subject=Kraśnik Solar Flex Park - zapytanie";
+
+const images = {
+  hero: "/images/hero-pv-bess.png",
+  solar: "/images/solar-landscape.png",
+  bess: "/images/bess-containers.png",
+  grid: "/images/grid-bess.png",
+  development: "/images/development-model.png"
+};
 
 const navItems = [
   { label: "O projekcie", href: "#o-projekcie" },
@@ -34,31 +42,30 @@ const navItems = [
 const featureTiles = [
   { title: "PV", label: "Fotowoltaika", icon: SunMedium },
   { title: "BESS", label: "Magazyn energii", icon: BatteryCharging },
-  { title: "Elastyczność", label: "Sieci", icon: Network },
-  { title: "Rozwój", label: "Etapowy", icon: TrendingUp }
-];
-
-const projectArguments = [
-  "Analiza lokalizacji i rozmowy dotyczące zabezpieczenia gruntu.",
-  "Weryfikacja możliwości przyłączeniowych oraz wariantów PV + BESS.",
-  "Przygotowanie ścieżki finansowania pre-development i struktury SPV.",
-  "Etapowanie projektu bez deklarowania zatwierdzonych mocy."
+  { title: "Elastyczność", label: "sieci", icon: Network },
+  { title: "Rozwój", label: "etapowy", icon: TrendingUp }
 ];
 
 const projectCards = [
   {
     title: "Fotowoltaika",
     text: "Instalacja PV planowana etapowo — od mniejszego, bankowalnego wariantu startowego do dalszej rozbudowy po potwierdzeniu warunków technicznych i finansowych.",
+    image: images.solar,
+    alt: "Panele fotowoltaiczne w krajobrazie rolniczym",
     icon: SunMedium
   },
   {
     title: "Magazyn energii",
     text: "Magazyn energii ma wspierać elastyczność projektu, poprawę profilu energetycznego i przyszłe możliwości rynkowe.",
+    image: images.bess,
+    alt: "Kontenery bateryjnego magazynu energii",
     icon: BatteryCharging
   },
   {
-    title: "Podejście sieciowe",
+    title: "Podejście grid-first",
     text: "Strategia rozwoju projektu zakłada priorytet dla kontroli nad gruntem, wykonalności przyłącza, rozmów z operatorem oraz etapowania mocy zamiast spekulacyjnych zakupów sprzętu.",
+    image: images.grid,
+    alt: "Infrastruktura sieci elektroenergetycznej",
     icon: PlugZap
   }
 ];
@@ -119,21 +126,25 @@ const cooperationCards = [
   {
     title: "Właściciele gruntów",
     text: "Poszukujemy właścicieli gruntów otwartych na rozmowę o opcji, dzierżawie warunkowej lub modelu współpracy projektowej.",
+    image: images.solar,
     icon: LandPlot
   },
   {
     title: "Inwestorzy",
     text: "Szukamy inwestorów pre-development zainteresowanych wejściem w projekt infrastruktury energetycznej na wczesnym etapie.",
+    image: images.development,
     icon: TrendingUp
   },
   {
     title: "Partnerzy techniczni",
     text: "EPC, integratorzy BESS, doradcy techniczni i partnerzy zdolni wesprzeć bankowalny rozwój projektu.",
+    image: images.bess,
     icon: Factory
   },
   {
     title: "Partnerzy rynku energii",
     text: "Optymalizatorzy, traderzy energii, partnerzy PPA i podmioty związane z rynkiem bilansującym.",
+    image: images.grid,
     icon: Network
   }
 ];
@@ -141,21 +152,35 @@ const cooperationCards = [
 const contactItems = [
   { label: "E-mail", value: "adrian@krasniksolarflexpark.pl", icon: Mail },
   { label: "Telefon", value: "+48 XXX XXX XXX", icon: Phone },
-  { label: "Lokalizacja", value: "Kraśnik, woj. lubelskie", icon: MapPin },
-  { label: "Status", value: "Pre-development | SPV w organizacji", icon: Building2 }
+  { label: "Strona", value: "www.krasniksolarflexpark.pl", icon: Network },
+  { label: "Status", value: "Projekt na etapie pre-development | SPV w organizacji", icon: Building2 }
 ];
+
+function IconBadge({ icon: Icon, compact = false }: { icon: LucideIcon; compact?: boolean }) {
+  return (
+    <span
+      className={`inline-flex shrink-0 items-center justify-center rounded-full border border-emerald-400/[0.35] bg-emerald-400/10 text-emerald-300 shadow-glow ${
+        compact ? "h-10 w-10" : "h-12 w-12"
+      }`}
+    >
+      <Icon size={compact ? 18 : 22} strokeWidth={1.8} aria-hidden="true" />
+    </span>
+  );
+}
 
 function SectionHeader({
   label,
   title,
-  text
+  text,
+  className = ""
 }: {
   label: string;
   title: string;
   text?: string;
+  className?: string;
 }) {
   return (
-    <div className="max-w-3xl">
+    <div className={`max-w-3xl ${className}`}>
       <p className="section-label">{label}</p>
       <h2 className="section-heading">{title}</h2>
       {text ? <p className="section-lead">{text}</p> : null}
@@ -163,82 +188,88 @@ function SectionHeader({
   );
 }
 
-function IconBadge({ icon: Icon }: { icon: LucideIcon }) {
+function HeroImagePanel() {
   return (
-    <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-emerald-400/20 bg-emerald-400/10 text-emerald-300">
-      <Icon size={20} strokeWidth={1.8} aria-hidden="true" />
+    <div className="hero-photo-panel">
+      <Image
+        src={images.hero}
+        alt="Park fotowoltaiczny z bateryjnym magazynem energii"
+        fill
+        priority
+        sizes="(min-width: 1024px) 52vw, 100vw"
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.16),rgba(2,6,23,0.18)_40%,rgba(2,6,23,0.78)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(74,222,128,0.26),transparent_30%),linear-gradient(180deg,rgba(2,6,23,0.08),rgba(2,6,23,0.72)_84%)]" />
+
+      <div className="absolute bottom-5 left-5 right-5 grid gap-3 sm:grid-cols-3">
+        {["PV", "BESS", "SPV"].map((item) => (
+          <div key={item} className="rounded-lg border border-white/[0.12] bg-slate-950/[0.65] p-4 backdrop-blur-xl">
+            <p className="text-lg font-semibold text-white">{item}</p>
+            <p className="mt-1 text-xs uppercase tracking-[0.18em] text-emerald-200/80">
+              analiza
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
-function EnergyVisual({ compact = false }: { compact?: boolean }) {
+function ImageProjectCard({ card }: { card: (typeof projectCards)[number] }) {
   return (
-    <div
-      className={`relative overflow-hidden rounded-lg border border-emerald-300/20 bg-slate-950/[0.78] shadow-glow ${
-        compact ? "min-h-[300px]" : "min-h-[520px]"
-      }`}
-    >
+    <article className="image-card group">
+      <div className="relative h-48 overflow-hidden">
+        <Image
+          src={card.image}
+          alt={card.alt}
+          fill
+          sizes="(min-width: 1024px) 24vw, 100vw"
+          className="object-cover transition duration-500 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.02),rgba(2,6,23,0.84))]" />
+        <div className="absolute bottom-4 left-4">
+          <IconBadge icon={card.icon} compact />
+        </div>
+      </div>
+      <div className="p-5">
+        <h3 className="text-xl font-semibold text-white">{card.title}</h3>
+        <p className="mt-3 text-sm leading-7 text-slate-300">{card.text}</p>
+      </div>
+    </article>
+  );
+}
+
+function BackgroundCard({ card }: { card: (typeof cooperationCards)[number] }) {
+  return (
+    <article className="image-card min-h-[280px]">
       <Image
-        src="/images/krasnik-solar-flex-park-hero.png"
-        alt="Wizualizacja parku fotowoltaicznego z magazynem energii"
+        src={card.image}
+        alt=""
         fill
-        priority={!compact}
-        sizes={compact ? "(min-width: 1024px) 33vw, 100vw" : "(min-width: 1024px) 50vw, 100vw"}
-        className="object-cover opacity-[0.74]"
+        sizes="(min-width: 1024px) 25vw, 100vw"
+        className="object-cover opacity-[0.48]"
       />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_68%_24%,rgba(34,197,94,0.25),transparent_34%),linear-gradient(145deg,rgba(2,6,23,0.34),rgba(2,6,23,0.92)_78%)]" />
-      <div className="absolute inset-0 energy-grid opacity-60" />
-
-      <div className="absolute left-5 right-5 top-5 grid grid-cols-3 gap-3 text-xs text-slate-200/[0.82]">
-        {["PV", "BESS", "SIEĆ"].map((item) => (
-          <div
-            key={item}
-            className="rounded-lg border border-white/10 bg-slate-950/[0.68] px-3 py-2 backdrop-blur"
-          >
-            <span className="block font-semibold text-emerald-300">{item}</span>
-            <span className="text-[0.68rem] uppercase tracking-[0.2em] text-slate-400">
-              analiza
-            </span>
-          </div>
-        ))}
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.24),rgba(2,6,23,0.96))]" />
+      <div className="relative z-10 flex min-h-[280px] flex-col justify-end p-6">
+        <IconBadge icon={card.icon} compact />
+        <h3 className="mt-5 text-xl font-semibold text-white">{card.title}</h3>
+        <p className="mt-3 text-sm leading-7 text-slate-300">{card.text}</p>
       </div>
-
-      <div className="absolute bottom-5 left-5 right-5 rounded-lg border border-sky-300/20 bg-slate-950/[0.74] p-4 backdrop-blur">
-        <div className="mb-4 flex items-center justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-[0.22em] text-sky-200/[0.78]">
-              panel energii
-            </p>
-            <p className="mt-1 text-sm font-semibold text-white">
-              Profil PV + magazynowanie
-            </p>
-          </div>
-          <Zap className="text-emerald-300" size={22} aria-hidden="true" />
-        </div>
-        <div className="grid grid-cols-12 items-end gap-1.5">
-          {[30, 44, 58, 72, 86, 78, 64, 52, 70, 84, 62, 42].map((height, index) => (
-            <div
-              key={`${height}-${index}`}
-              className="rounded-t bg-gradient-to-t from-sky-500/50 to-emerald-300"
-              style={{ height: `${height}px` }}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
+    </article>
   );
 }
 
 export default function Home() {
   return (
     <main className="min-h-screen overflow-hidden bg-night text-white">
-      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_20%_8%,rgba(34,197,94,0.15),transparent_32%),radial-gradient(circle_at_82%_18%,rgba(56,189,248,0.13),transparent_32%),linear-gradient(180deg,#020617_0%,#030712_45%,#07111f_100%)]" />
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_18%_9%,rgba(34,197,94,0.14),transparent_28%),radial-gradient(circle_at_86%_18%,rgba(56,189,248,0.11),transparent_30%),linear-gradient(180deg,#020617_0%,#030712_48%,#07111f_100%)]" />
       <div className="fixed inset-0 -z-10 energy-grid opacity-30" />
 
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/[0.72] backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/[0.82] backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
           <a href="#top" className="flex items-center gap-3" aria-label="Kraśnik Solar Flex Park">
-            <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-400/25 bg-emerald-400/10 text-emerald-300 shadow-glow">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-emerald-400/[0.35] bg-emerald-400/10 text-emerald-300 shadow-glow">
               <Leaf size={20} aria-hidden="true" />
             </span>
             <span className="text-sm font-semibold tracking-wide text-white sm:text-base">
@@ -246,7 +277,7 @@ export default function Home() {
             </span>
           </a>
 
-          <nav className="hidden items-center gap-6 text-sm text-slate-300 lg:flex">
+          <nav className="hidden items-center gap-7 text-sm text-slate-300 lg:flex">
             {navItems.map((item) => (
               <a key={item.href} href={item.href} className="nav-link">
                 {item.label}
@@ -254,87 +285,63 @@ export default function Home() {
             ))}
           </nav>
 
-          <a href={contactHref} className="hidden rounded-lg bg-emerald-400 px-4 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-200 md:inline-flex">
+          <a href={contactHref} className="hidden rounded-lg border border-emerald-400/60 px-5 py-2.5 text-sm font-bold text-emerald-300 transition hover:bg-emerald-400 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-emerald-200 md:inline-flex">
             Skontaktuj się
           </a>
         </div>
       </header>
 
-      <section id="top" className="relative px-5 pb-20 pt-16 sm:pt-20 lg:px-8 lg:pb-28">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.94fr_1.06fr] lg:items-center">
-          <div>
-            <p className="mb-5 inline-flex items-center gap-2 rounded-lg border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-200">
-              <Zap size={14} aria-hidden="true" />
-              Etap pre-development | Woj. lubelskie | SPV w organizacji
-            </p>
+      <section id="top" className="relative border-b border-white/10">
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#020617_0%,rgba(2,6,23,0.94)_46%,rgba(2,6,23,0.62)_100%)] lg:w-[58%]" />
+        <div className="relative mx-auto grid min-h-[calc(100svh-73px)] max-w-7xl gap-10 px-5 py-14 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:px-8 lg:py-20">
+          <div className="relative z-10">
             <h1 className="text-6xl font-semibold leading-[0.98] tracking-normal text-white sm:text-7xl lg:text-8xl">
               Kraśnik
               <span className="mt-2 block bg-gradient-to-r from-emerald-300 via-emerald-400 to-sky-300 bg-clip-text text-transparent">
                 Solar Flex Park
               </span>
             </h1>
+
+            <div className="mt-6 flex flex-wrap gap-4 text-sm text-slate-200">
+              {["Etap pre-development", "Woj. lubelskie", "SPV w organizacji"].map((item) => (
+                <span key={item} className="inline-flex items-center gap-2">
+                  <span className="h-2.5 w-2.5 rounded-full border border-emerald-300 bg-emerald-400/20" />
+                  {item}
+                </span>
+              ))}
+            </div>
+
             <h2 className="mt-8 max-w-3xl text-3xl font-semibold leading-tight text-slate-100 sm:text-4xl">
               Hybrydowy projekt fotowoltaiki i magazynu energii w regionie Kraśnika.
             </h2>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+            <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
               Kraśnik Solar Flex Park to etapowo rozwijany projekt infrastruktury
               energetycznej łączący fotowoltaikę, magazyn energii oraz
               elastyczność systemową. Projekt przygotowywany jest w formule
               dedykowanej spółki celowej SPV.
             </p>
+
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a href={contactHref} className="primary-button">
                 Skontaktuj się
-                <Mail size={18} aria-hidden="true" />
+                <ArrowRight size={18} aria-hidden="true" />
               </a>
               <a href="#o-projekcie" className="secondary-button">
                 Dowiedz się więcej
-                <ArrowRight size={18} aria-hidden="true" />
+                <ArrowDown size={18} aria-hidden="true" />
               </a>
             </div>
           </div>
 
-          <EnergyVisual />
-        </div>
+          <HeroImagePanel />
 
-        <div className="mx-auto mt-14 grid max-w-7xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {featureTiles.map((item) => (
-            <article key={item.title} className="feature-card">
-              <IconBadge icon={item.icon} />
-              <div>
-                <h3 className="text-xl font-semibold text-white">{item.title}</h3>
-                <p className="mt-1 text-sm text-slate-400">{item.label}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section id="o-projekcie" className="section-shell">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
-            <SectionHeader
-              label="O PROJEKCIE"
-              title="Etapowy projekt PV + BESS skoncentrowany na elastyczności energetycznej."
-              text="Projekt znajduje się obecnie na etapie analizy lokalizacji, rozmów dotyczących zabezpieczenia gruntu, weryfikacji możliwości przyłączeniowych oraz przygotowania ścieżki finansowania."
-            />
-            <div className="mt-8 space-y-4">
-              {projectArguments.map((item) => (
-                <div key={item} className="flex gap-3 text-slate-300">
-                  <CheckCircle2 className="mt-1 shrink-0 text-emerald-300" size={18} aria-hidden="true" />
-                  <p className="leading-7">{item}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid gap-4">
-            {projectCards.map((card) => (
-              <article key={card.title} className="premium-card grid gap-5 sm:grid-cols-[auto_1fr]">
-                <IconBadge icon={card.icon} />
+          <div className="relative z-10 grid gap-4 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-4">
+            {featureTiles.map((item) => (
+              <article key={item.title} className="feature-card">
+                <IconBadge icon={item.icon} compact />
                 <div>
-                  <h3 className="text-xl font-semibold text-white">{card.title}</h3>
-                  <p className="mt-3 leading-7 text-slate-300">{card.text}</p>
+                  <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+                  <p className="mt-1 text-sm text-slate-400">{item.label}</p>
                 </div>
               </article>
             ))}
@@ -342,8 +349,41 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="region" className="section-shell bg-slate-950/[0.38]">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+      <section id="o-projekcie" className="section-shell">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+          <div className="lg:sticky lg:top-28">
+            <SectionHeader
+              label="O PROJEKCIE"
+              title="Etapowy projekt PV + BESS skoncentrowany na elastyczności energetycznej."
+              text="Projekt znajduje się obecnie na etapie analizy lokalizacji, rozmów dotyczących zabezpieczenia gruntu, weryfikacji możliwości przyłączeniowych oraz przygotowania ścieżki finansowania."
+            />
+            <div className="mt-9 rounded-lg border border-emerald-300/15 bg-emerald-300/[0.06] p-5 text-sm leading-7 text-slate-300">
+              Komunikacja projektu pozostaje ostrożna: obecny etap nie oznacza
+              uzyskania finansowania, pozwoleń, przyłącza ani rozpoczęcia budowy.
+            </div>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-3 lg:gap-6">
+            {projectCards.map((card) => (
+              <ImageProjectCard key={card.title} card={card} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="region" className="section-shell overflow-hidden bg-slate-950/[0.42]">
+        <div className="absolute inset-y-0 right-0 hidden w-[46%] lg:block">
+          <Image
+            src={images.grid}
+            alt="Sieć elektroenergetyczna jako kontekst dla projektu PV i BESS"
+            fill
+            sizes="46vw"
+            className="object-cover opacity-[0.38]"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,#020617_0%,rgba(2,6,23,0.82)_34%,rgba(2,6,23,0.94)_100%)]" />
+        </div>
+
+        <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
           <SectionHeader
             label="REGIONALNY KONTEKST"
             title="Lubelskie jako rosnący region dla infrastruktury energetycznej i elastyczności systemowej."
@@ -351,15 +391,26 @@ export default function Home() {
           />
 
           <div>
+            <div className="mb-6 overflow-hidden rounded-lg border border-sky-300/15 lg:hidden">
+              <Image
+                src={images.grid}
+                alt="Infrastruktura sieciowa w regionie"
+                width={1448}
+                height={1086}
+                className="h-64 w-full object-cover"
+              />
+            </div>
+
             <div className="grid gap-4 sm:grid-cols-2">
               {regionCards.map((card) => (
                 <article key={card.title} className="premium-card">
-                  <IconBadge icon={card.icon} />
+                  <IconBadge icon={card.icon} compact />
                   <h3 className="mt-6 text-lg font-semibold text-white">{card.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-300">{card.text}</p>
                 </article>
               ))}
             </div>
+
             <p className="mt-5 rounded-lg border border-sky-300/20 bg-sky-300/[0.06] p-4 text-sm leading-6 text-slate-300">
               Projekt znajduje się na etapie pre-development. Informacje
               regionalne stanowią kontekst inwestycyjny i nie oznaczają
@@ -371,84 +422,83 @@ export default function Home() {
 
       <section id="model-rozwoju" className="section-shell">
         <div className="mx-auto max-w-7xl">
-          <SectionHeader
-            label="MODEL ROZWOJU"
-            title="Projekt strukturyzowany jako SPV z jasno określonymi kamieniami milowymi."
-            text="Bezpośrednim celem jest zabezpieczenie praw do gruntu, potwierdzenie zgodności planistycznej, przygotowanie ścieżki przyłączeniowej oraz zorganizowanie finansowania pre-development."
-          />
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+            <SectionHeader
+              label="MODEL ROZWOJU"
+              title="Projekt strukturyzowany jako SPV z jasno określonymi kamieniami milowymi."
+              text="Bezpośrednim celem jest zabezpieczenie praw do gruntu, potwierdzenie zgodności planistycznej, przygotowanie ścieżki przyłączeniowej oraz zorganizowanie finansowania pre-development."
+            />
+
+            <div className="relative min-h-[310px] overflow-hidden rounded-lg border border-emerald-300/[0.18] shadow-glow">
+              <Image
+                src={images.development}
+                alt="Wizualizacja etapowego modelu rozwoju projektu energetycznego"
+                fill
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.18),rgba(2,6,23,0.76)),radial-gradient(circle_at_70%_32%,rgba(74,222,128,0.24),transparent_30%)]" />
+              <div className="absolute bottom-5 left-5 right-5 rounded-lg border border-white/[0.12] bg-slate-950/70 p-5 backdrop-blur-xl">
+                <p className="text-sm uppercase tracking-[0.22em] text-emerald-300">
+                  Rozwój etapowy projektu
+                </p>
+                <div className="mt-4 grid gap-3">
+                  {stagedSteps.map((step) => (
+                    <div key={step} className="flex items-center gap-3 text-sm text-slate-200">
+                      <span className="h-2 w-2 rounded-full bg-emerald-300" />
+                      {step}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div className="relative mt-14 grid gap-5 lg:grid-cols-4">
-            <div className="absolute left-0 right-0 top-9 hidden h-px bg-gradient-to-r from-emerald-400/0 via-emerald-300/45 to-sky-300/0 lg:block" />
+            <div className="absolute left-8 right-8 top-8 hidden h-px bg-gradient-to-r from-emerald-400/0 via-emerald-300/[0.55] to-sky-300/0 lg:block" />
             {timeline.map((item) => (
               <article key={item.number} className="timeline-card">
-                <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-lg border border-emerald-300/25 bg-slate-950 text-2xl font-semibold text-emerald-300 shadow-glow">
+                <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full border border-emerald-300/[0.35] bg-slate-950 text-xl font-semibold text-emerald-300 shadow-glow">
                   {item.number}
                 </div>
-                <h3 className="mt-7 text-xl font-semibold text-white">{item.title}</h3>
+                <h3 className="mt-7 text-lg font-semibold text-white">{item.title}</h3>
                 <p className="mt-4 text-sm leading-7 text-slate-300">{item.text}</p>
               </article>
             ))}
           </div>
-
-          <div className="mt-10 grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
-            <div className="premium-card">
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
-                Rozwój etapowy projektu
-              </p>
-              <div className="mt-6 space-y-4">
-                {stagedSteps.map((step) => (
-                  <div key={step} className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-4">
-                    <Lightbulb className="shrink-0 text-sky-300" size={19} aria-hidden="true" />
-                    <p className="text-sm leading-6 text-slate-300">{step}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {["Lokalizacja", "Przyłączenie", "Kapitał"].map((item, index) => (
-                <div key={item} className="rounded-lg border border-emerald-300/15 bg-gradient-to-b from-emerald-300/10 to-slate-950/[0.64] p-5">
-                  <p className="text-3xl font-semibold text-white">0{index + 1}</p>
-                  <p className="mt-8 text-sm font-semibold uppercase tracking-[0.18em] text-emerald-200">
-                    {item}
-                  </p>
-                  <div className="mt-4 h-2 rounded bg-slate-800">
-                    <div
-                      className="h-2 rounded bg-gradient-to-r from-emerald-400 to-sky-300"
-                      style={{ width: `${42 + index * 18}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
-      <section id="wspolpraca" className="section-shell bg-slate-950/[0.38]">
-        <div className="mx-auto max-w-7xl">
+      <section id="wspolpraca" className="section-shell bg-slate-950/[0.42]">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.72fr_1.28fr]">
           <SectionHeader
             label="WSPÓŁPRACA"
             title="Aktualnie poszukujemy partnerów na wczesnym etapie rozwoju projektu."
             text="Projekt jest rozwijany w formule otwartej na rozmowy z właścicielami gruntów, inwestorami pre-development, partnerami technicznymi oraz podmiotami rynku energii."
           />
 
-          <div className="mt-12 grid gap-4 md:grid-cols-2">
+          <div className="grid gap-5 sm:grid-cols-2">
             {cooperationCards.map((card) => (
-              <article key={card.title} className="premium-card">
-                <IconBadge icon={card.icon} />
-                <h3 className="mt-6 text-xl font-semibold text-white">{card.title}</h3>
-                <p className="mt-3 leading-7 text-slate-300">{card.text}</p>
-              </article>
+              <BackgroundCard key={card.title} card={card} />
             ))}
           </div>
         </div>
       </section>
 
-      <section id="kontakt" className="section-shell">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.85fr_1fr_0.9fr] lg:items-center">
-          <EnergyVisual compact />
+      <section id="kontakt" className="border-t border-white/10 bg-slate-950/[0.62]">
+        <div className="mx-auto grid max-w-7xl gap-0 lg:grid-cols-[0.85fr_1fr_0.86fr]">
+          <div className="relative min-h-[340px] overflow-hidden lg:min-h-[430px]">
+            <Image
+              src={images.hero}
+              alt="Fotowoltaika i magazyn energii w projekcie Kraśnik Solar Flex Park"
+              fill
+              sizes="(min-width: 1024px) 33vw, 100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.08),rgba(2,6,23,0.78)),linear-gradient(180deg,rgba(2,6,23,0.08),rgba(2,6,23,0.78))]" />
+          </div>
 
-          <div>
+          <div className="px-5 py-16 lg:px-12 lg:py-20">
             <SectionHeader
               label="KONTAKT"
               title="Porozmawiajmy o gruncie, inwestycji, współpracy technicznej lub partnerstwie energetycznym."
@@ -456,16 +506,16 @@ export default function Home() {
             />
             <a href={contactHref} className="primary-button mt-8">
               Napisz do nas
-              <Mail size={18} aria-hidden="true" />
+              <ArrowRight size={18} aria-hidden="true" />
             </a>
           </div>
 
-          <aside className="premium-card">
+          <aside className="m-5 self-center rounded-lg border border-emerald-300/[0.18] bg-slate-950/[0.74] p-7 shadow-glow backdrop-blur-xl lg:m-8">
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
               Karta kontaktowa
             </p>
             <h3 className="mt-5 text-2xl font-semibold text-white">Adrian Mazur</h3>
-            <p className="mt-1 text-slate-400">Założyciel / Sponsor projektu</p>
+            <p className="mt-1 text-slate-400">Founder / Sponsor Projektu</p>
 
             <div className="mt-7 space-y-4">
               {contactItems.map((item) => (
@@ -478,10 +528,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-
-            <p className="mt-6 break-words text-sm text-sky-300">
-              www.krasniksolarflexpark.pl
-            </p>
           </aside>
         </div>
       </section>

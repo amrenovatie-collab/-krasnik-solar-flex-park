@@ -12,9 +12,9 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/krasnik-solar-flex-park-hero.png",
-        width: 1536,
-        height: 864,
+        url: "/images/hero-pv-bess.png",
+        width: 1448,
+        height: 1086,
         alt: "Park fotowoltaiczny z magazynem energii"
       }
     ]

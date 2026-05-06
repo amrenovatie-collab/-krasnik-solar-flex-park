@@ -9,6 +9,7 @@ Obecnie dostępne są obrazy:
 - `bess-containers.png` - kontenery bateryjnego magazynu energii
 - `grid-bess.png` - infrastruktura sieciowa i kontekst grid
 - `development-model.png` - grafika dla modelu rozwoju
+- `development-model-en.png` - angielska grafika dla modelu rozwoju
 - `website-reference.png` - referencja wizualna dla layoutu strony
 - `krasnik-solar-flex-park-hero.png` - poprzedni wizual PV + BESS
 

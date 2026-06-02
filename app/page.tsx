@@ -87,7 +87,7 @@ function isLanguage(value: string | null): value is Language {
 function IconBadge({ icon: Icon, compact = false }: { icon: LucideIcon; compact?: boolean }) {
   return (
     <span
-      className={`inline-flex shrink-0 items-center justify-center rounded-full border border-emerald-400/[0.35] bg-emerald-400/10 text-emerald-300 shadow-glow ${
+      className={`inline-flex shrink-0 items-center justify-center rounded-full border border-rose-200/[0.26] bg-[linear-gradient(135deg,rgba(34,197,94,0.12),rgba(244,114,182,0.13))] text-rose-100 shadow-glow ${
         compact ? "h-10 w-10" : "h-12 w-12"
       }`}
     >
@@ -123,7 +123,7 @@ function LanguageSwitcher({
             onClick={() => onChange(language.code)}
             className={`h-9 w-10 rounded-md text-xs font-bold transition focus:outline-none focus:ring-2 focus:ring-emerald-300 ${
               isActive
-                ? "bg-emerald-400 text-slate-950 shadow-glow"
+                ? "bg-gradient-to-r from-emerald-200 via-rose-200 to-sky-200 text-slate-950 shadow-glow"
                 : "text-slate-300 hover:bg-white/10 hover:text-white"
             }`}
           >
@@ -173,13 +173,13 @@ function HeroImagePanel({
         className="object-cover"
       />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.16),rgba(2,6,23,0.18)_40%,rgba(2,6,23,0.78)_100%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(74,222,128,0.26),transparent_30%),linear-gradient(180deg,rgba(2,6,23,0.08),rgba(2,6,23,0.72)_84%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(244,114,182,0.22),transparent_30%),radial-gradient(circle_at_42%_18%,rgba(74,222,128,0.16),transparent_28%),linear-gradient(180deg,rgba(2,6,23,0.08),rgba(2,6,23,0.72)_84%)]" />
 
       <div className="absolute bottom-4 left-4 right-4 grid grid-cols-3 gap-2 sm:bottom-5 sm:left-5 sm:right-5 sm:gap-3">
         {metrics.map((item) => (
           <div key={item.title} className="rounded-lg border border-white/[0.12] bg-slate-950/[0.65] p-3 backdrop-blur-xl sm:p-4">
             <p className="text-base font-semibold text-white sm:text-lg">{item.title}</p>
-            <p className="mt-1 hidden text-xs uppercase tracking-[0.18em] text-emerald-200/80 min-[390px]:block">
+            <p className="mt-1 hidden text-xs uppercase tracking-[0.18em] text-rose-100/80 min-[390px]:block">
               {item.caption}
             </p>
           </div>
@@ -299,13 +299,13 @@ export default function Home() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-night text-white">
-      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_18%_9%,rgba(34,197,94,0.14),transparent_28%),radial-gradient(circle_at_86%_18%,rgba(56,189,248,0.11),transparent_30%),linear-gradient(180deg,#020617_0%,#030712_48%,#07111f_100%)]" />
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_18%_9%,rgba(34,197,94,0.12),transparent_28%),radial-gradient(circle_at_72%_12%,rgba(244,114,182,0.13),transparent_28%),radial-gradient(circle_at_90%_28%,rgba(56,189,248,0.1),transparent_32%),linear-gradient(180deg,#020617_0%,#030712_48%,#07111f_100%)]" />
       <div className="fixed inset-0 -z-10 energy-grid opacity-30" />
 
       <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/[0.82] backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-5 sm:py-4 lg:px-8">
           <a href="#top" onClick={closeMenu} className="flex min-w-0 items-center gap-3" aria-label={t.brand}>
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-emerald-400/[0.35] bg-emerald-400/10 text-emerald-300 shadow-glow sm:h-10 sm:w-10">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-rose-200/[0.26] bg-[linear-gradient(135deg,rgba(34,197,94,0.12),rgba(244,114,182,0.13))] text-rose-100 shadow-glow sm:h-10 sm:w-10">
               <Leaf size={20} aria-hidden="true" />
             </span>
             <span className="max-w-[12rem] truncate text-sm font-semibold tracking-wide text-white min-[390px]:max-w-[14rem] sm:max-w-none sm:text-base">
@@ -329,7 +329,7 @@ export default function Home() {
                 onChange={handleLanguageChange}
               />
             </div>
-            <a href={contactHref} className="hidden rounded-lg border border-emerald-400/60 px-5 py-2.5 text-sm font-bold text-emerald-300 transition hover:bg-emerald-400 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-emerald-200 lg:inline-flex">
+            <a href={contactHref} className="hidden rounded-lg border border-rose-200/45 px-5 py-2.5 text-sm font-bold text-rose-100 transition hover:bg-gradient-to-r hover:from-emerald-200 hover:via-rose-200 hover:to-sky-200 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-rose-200 lg:inline-flex">
               {t.cta.contact}
             </a>
             <button
@@ -338,7 +338,7 @@ export default function Home() {
               aria-expanded={menuOpen}
               aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
               onClick={() => setMenuOpen((isOpen) => !isOpen)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-slate-100 transition hover:border-emerald-300/45 hover:bg-emerald-300/10 focus:outline-none focus:ring-2 focus:ring-emerald-300 lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-slate-100 transition hover:border-rose-200/45 hover:bg-rose-200/10 focus:outline-none focus:ring-2 focus:ring-rose-200 lg:hidden"
             >
               {menuOpen ? <X size={21} aria-hidden="true" /> : <Menu size={21} aria-hidden="true" />}
             </button>
@@ -357,7 +357,7 @@ export default function Home() {
                 key={item.href}
                 href={item.href}
                 onClick={closeMenu}
-                className="rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-base font-semibold text-slate-100 transition hover:border-emerald-300/35 hover:bg-emerald-300/10"
+                className="rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-base font-semibold text-slate-100 transition hover:border-rose-200/35 hover:bg-rose-200/10"
               >
                 {item.label}
               </a>
@@ -392,7 +392,7 @@ export default function Home() {
             <div className="mt-5 flex flex-wrap gap-3 text-sm text-slate-200 sm:mt-6 sm:gap-4">
               {t.hero.meta.map((item) => (
                 <span key={item} className="inline-flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full border border-emerald-300 bg-emerald-400/20" />
+                  <span className="h-2.5 w-2.5 rounded-full border border-rose-200 bg-gradient-to-br from-emerald-300/45 to-rose-300/45" />
                   {item}
                 </span>
               ))}
@@ -441,7 +441,7 @@ export default function Home() {
               title={t.project.title}
               text={t.project.description}
             />
-            <div className="mt-7 rounded-lg border border-emerald-300/15 bg-emerald-300/[0.06] p-4 text-sm leading-7 text-slate-300 sm:p-5 lg:mt-9">
+            <div className="mt-7 rounded-lg border border-rose-200/15 bg-[linear-gradient(135deg,rgba(34,197,94,0.06),rgba(244,114,182,0.08))] p-4 text-sm leading-7 text-slate-300 sm:p-5 lg:mt-9">
               {t.project.note}
             </div>
           </div>
@@ -529,14 +529,14 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-8 rounded-lg border border-emerald-300/[0.16] bg-slate-950/[0.56] p-4 shadow-glow backdrop-blur-xl sm:p-5 lg:mt-10">
-            <p className="text-sm uppercase tracking-[0.22em] text-emerald-300">
+          <div className="mt-8 rounded-lg border border-rose-200/[0.16] bg-[linear-gradient(135deg,rgba(15,23,42,0.72),rgba(244,114,182,0.08))] p-4 shadow-glow backdrop-blur-xl sm:p-5 lg:mt-10">
+            <p className="text-sm uppercase tracking-[0.22em] text-rose-100">
               {t.model.stagedLabel}
             </p>
             <div className="mt-4 grid gap-3 md:grid-cols-3">
               {t.model.stagedSteps.map((step) => (
                 <div key={step} className="flex items-center gap-3 text-sm text-slate-200">
-                  <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-300" />
+                  <span className="h-2 w-2 shrink-0 rounded-full bg-gradient-to-br from-emerald-300 to-rose-300" />
                   {step}
                 </div>
               ))}
@@ -544,10 +544,10 @@ export default function Home() {
           </div>
 
           <div className="relative mt-10 grid gap-5 md:grid-cols-2 lg:mt-14 lg:grid-cols-4">
-            <div className="absolute left-8 right-8 top-8 hidden h-px bg-gradient-to-r from-emerald-400/0 via-emerald-300/[0.55] to-sky-300/0 lg:block" />
+            <div className="absolute left-8 right-8 top-8 hidden h-px bg-gradient-to-r from-emerald-400/0 via-rose-200/[0.58] to-sky-300/0 lg:block" />
             {t.model.timeline.map((item) => (
               <article key={item.number} className="timeline-card">
-                <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full border border-emerald-300/[0.35] bg-slate-950 text-xl font-semibold text-emerald-300 shadow-glow">
+                <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full border border-rose-200/[0.35] bg-slate-950 text-xl font-semibold text-rose-100 shadow-glow">
                   {item.number}
                 </div>
                 <h3 className="mt-7 text-lg font-semibold text-white">{item.title}</h3>
@@ -605,8 +605,8 @@ export default function Home() {
             </a>
           </div>
 
-          <aside className="m-4 self-center rounded-lg border border-emerald-300/[0.18] bg-slate-950/[0.74] p-5 shadow-glow backdrop-blur-xl sm:m-6 sm:p-7 md:col-span-2 lg:col-span-1 lg:m-8">
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
+          <aside className="m-4 self-center rounded-lg border border-rose-200/[0.18] bg-[linear-gradient(135deg,rgba(15,23,42,0.78),rgba(244,114,182,0.08))] p-5 shadow-glow backdrop-blur-xl sm:m-6 sm:p-7 md:col-span-2 lg:col-span-1 lg:m-8">
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-rose-100">
               {t.contact.cardLabel}
             </p>
             <h3 className="mt-5 text-2xl font-semibold text-white">{t.contact.name}</h3>
@@ -618,7 +618,7 @@ export default function Home() {
 
                 return (
                   <div key={item.label} className="flex gap-3">
-                    <Icon className="mt-0.5 shrink-0 text-emerald-300" size={18} aria-hidden="true" />
+                    <Icon className="mt-0.5 shrink-0 text-rose-100" size={18} aria-hidden="true" />
                     <div>
                       <p className="text-xs uppercase tracking-[0.18em] text-slate-500">{item.label}</p>
                       <p className="mt-1 break-words text-sm text-slate-200">{item.value}</p>

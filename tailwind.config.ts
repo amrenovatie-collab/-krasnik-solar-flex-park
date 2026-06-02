@@ -12,8 +12,10 @@ const config: Config = {
         skyGlow: "#38bdf8"
       },
       boxShadow: {
-        glow: "0 0 44px rgba(34, 197, 94, 0.18)",
-        blueGlow: "0 0 44px rgba(56, 189, 248, 0.14)"
+        glow:
+          "0 0 42px rgba(244, 114, 182, 0.16), 0 0 30px rgba(34, 197, 94, 0.12)",
+        blueGlow:
+          "0 0 42px rgba(56, 189, 248, 0.12), 0 0 26px rgba(244, 114, 182, 0.1)"
       },
       fontFamily: {
         sans: [

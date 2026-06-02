@@ -41,7 +41,7 @@ svg {
 }
 
 ::selection {
-  background: #4ade80;
+  background: #f9a8d4;
   color: #020617;
 }
 
@@ -63,7 +63,9 @@ svg {
 .nav-link:focus {
   color: #ffffff;
   outline: none;
-  text-shadow: 0 0 20px rgba(34, 197, 94, 0.45);
+  text-shadow:
+    0 0 18px rgba(244, 114, 182, 0.36),
+    0 0 24px rgba(34, 197, 94, 0.22);
 }
 
 .section-shell {
@@ -74,7 +76,10 @@ svg {
 
 .section-label {
   margin: 0 0 1rem;
-  color: #4ade80;
+  color: transparent;
+  background: linear-gradient(90deg, #86efac, #f9a8d4 62%, #bae6fd);
+  background-clip: text;
+  -webkit-background-clip: text;
   font-size: 0.78rem;
   font-weight: 800;
   line-height: 1.3;
@@ -117,17 +122,22 @@ svg {
 }
 
 .primary-button {
-  background: #4ade80;
+  background: linear-gradient(135deg, #86efac 0%, #f9a8d4 52%, #bae6fd 100%);
   color: #020617;
-  box-shadow: 0 0 34px rgba(34, 197, 94, 0.22);
+  box-shadow:
+    0 0 34px rgba(244, 114, 182, 0.18),
+    0 0 28px rgba(34, 197, 94, 0.16);
 }
 
 .primary-button:hover,
 .primary-button:focus {
-  background: #86efac;
+  background: linear-gradient(135deg, #bbf7d0 0%, #fbcfe8 54%, #e0f2fe 100%);
   color: #020617;
   outline: none;
   transform: translateY(-1px);
+  box-shadow:
+    0 0 46px rgba(244, 114, 182, 0.24),
+    0 0 36px rgba(34, 197, 94, 0.18);
 }
 
 .secondary-button {
@@ -138,8 +148,10 @@ svg {
 
 .secondary-button:hover,
 .secondary-button:focus {
-  border-color: rgb(74 222 128 / 0.55);
-  background: rgb(34 197 94 / 0.1);
+  border-color: rgb(249 168 212 / 0.5);
+  background:
+    linear-gradient(135deg, rgb(34 197 94 / 0.08), rgb(244 114 182 / 0.1)),
+    rgb(15 23 42 / 0.5);
   outline: none;
   transform: translateY(-1px);
 }
@@ -149,11 +161,13 @@ svg {
 .timeline-card,
 .image-card {
   border-radius: 0.5rem;
-  border: 1px solid rgb(148 163 184 / 0.14);
+  border: 1px solid rgb(248 187 218 / 0.13);
   background:
-    linear-gradient(135deg, rgb(15 23 42 / 0.84), rgb(2 6 23 / 0.76)),
+    linear-gradient(135deg, rgb(15 23 42 / 0.86), rgb(42 18 34 / 0.28) 52%, rgb(2 6 23 / 0.78)),
     rgb(2 6 23 / 0.68);
-  box-shadow: 0 20px 70px rgb(0 0 0 / 0.22);
+  box-shadow:
+    0 20px 70px rgb(0 0 0 / 0.22),
+    inset 0 1px 0 rgb(255 255 255 / 0.03);
   backdrop-filter: blur(18px);
 }
 
@@ -169,8 +183,10 @@ svg {
 }
 
 .feature-card:hover {
-  border-color: rgb(74 222 128 / 0.42);
-  box-shadow: 0 0 44px rgb(34 197 94 / 0.14);
+  border-color: rgb(249 168 212 / 0.34);
+  box-shadow:
+    0 0 42px rgb(244 114 182 / 0.13),
+    0 0 34px rgb(34 197 94 / 0.1);
   transform: translateY(-2px);
 }
 
@@ -184,10 +200,11 @@ svg {
   min-height: 340px;
   overflow: hidden;
   border-radius: 0.5rem;
-  border: 1px solid rgb(74 222 128 / 0.22);
+  border: 1px solid rgb(249 168 212 / 0.22);
   background: #07111f;
   box-shadow:
-    0 0 80px rgb(34 197 94 / 0.16),
+    0 0 80px rgb(244 114 182 / 0.15),
+    0 0 52px rgb(34 197 94 / 0.1),
     0 30px 90px rgb(0 0 0 / 0.36);
 }
 
@@ -202,8 +219,9 @@ svg {
   pointer-events: none;
   content: "";
   background:
-    linear-gradient(90deg, rgb(34 197 94 / 0.1), transparent 36%),
-    radial-gradient(circle at 100% 0%, rgb(56 189 248 / 0.12), transparent 34%);
+    linear-gradient(90deg, rgb(34 197 94 / 0.08), transparent 36%),
+    radial-gradient(circle at 96% 4%, rgb(244 114 182 / 0.13), transparent 32%),
+    radial-gradient(circle at 100% 0%, rgb(56 189 248 / 0.1), transparent 36%);
   opacity: 0.72;
 }
 
@@ -227,9 +245,10 @@ svg {
 }
 
 .image-card:hover {
-  border-color: rgb(74 222 128 / 0.38);
+  border-color: rgb(249 168 212 / 0.34);
   box-shadow:
-    0 0 54px rgb(34 197 94 / 0.16),
+    0 0 52px rgb(244 114 182 / 0.14),
+    0 0 34px rgb(34 197 94 / 0.1),
     0 24px 80px rgb(0 0 0 / 0.32);
   transform: translateY(-2px);
 }

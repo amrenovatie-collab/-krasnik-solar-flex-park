@@ -27,9 +27,35 @@ Adres lokalny: `http://localhost:3000`
 npm run build
 ```
 
+## Panel administratora i raport odwiedzin
+
+Panel jest dostępny pod adresem:
+
+```text
+/admin
+```
+
+Do logowania wymagane są zmienne środowiskowe:
+
+```text
+ADMIN_PASSWORD
+ADMIN_SESSION_SECRET
+```
+
+Raport odwiedzin zapisuje dane przez Upstash Redis REST albo Vercel KV REST. W Vercel dodaj:
+
+```text
+UPSTASH_REDIS_REST_URL
+UPSTASH_REDIS_REST_TOKEN
+```
+
+Panel nie zapisuje surowych adresów IP. Zlicza odsłony strony, wejścia w sekcje, urządzenia, ścieżki i ostatnie zdarzenia.
+
 ## Struktura
 
 - `app/layout.tsx` - metadata, język strony i layout root
 - `app/page.tsx` - kompletna strona one-page
+- `app/admin/` - panel administratora i raport odwiedzin
+- `app/api/` - API logowania i zapisu odwiedzin
 - `app/globals.css` - style globalne, utility i motyw premium dark
 - `public/images/` - lokalne obrazy używane przez `next/image`

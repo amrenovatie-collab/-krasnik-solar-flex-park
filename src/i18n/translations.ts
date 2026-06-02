@@ -203,6 +203,7 @@ export const translations = {
       ]
     },
     footer: {
+      adminLink: "Panel administratora",
       copyright:
         "© 2026 Kraśnik Solar Flex Park. Projekt na wczesnym etapie rozwoju. SPV w organizacji.",
       disclaimer:
@@ -394,6 +395,7 @@ export const translations = {
       ]
     },
     footer: {
+      adminLink: "Admin panel",
       copyright:
         "© 2026 Kraśnik Solar Flex Park. Project at the pre-development stage. SPV being organized.",
       disclaimer:

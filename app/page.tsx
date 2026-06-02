@@ -27,6 +27,7 @@ import {
   translations
 } from "../src/i18n/translations";
 import type { Language } from "../src/i18n/translations";
+import { VisitTracker } from "./visit-tracker";
 
 const storageKey = "ksfp-language";
 const contactEmail = "adrian@krasniksolarflexpark.pl";
@@ -345,6 +346,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-night pt-[65px] text-white sm:pt-[73px]">
+      <VisitTracker language={language} />
       <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_18%_9%,rgba(34,197,94,0.12),transparent_28%),radial-gradient(circle_at_72%_12%,rgba(244,114,182,0.13),transparent_28%),radial-gradient(circle_at_90%_28%,rgba(56,189,248,0.1),transparent_32%),linear-gradient(180deg,#020617_0%,#030712_48%,#07111f_100%)]" />
       <div className="fixed inset-0 -z-10 energy-grid opacity-30" />
 
@@ -694,7 +696,12 @@ export default function Home() {
       <footer className="border-t border-white/10 px-4 py-7 sm:px-5 sm:py-8 lg:px-8">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
           <p>{t.footer.copyright}</p>
-          <p className="max-w-2xl">{t.footer.disclaimer}</p>
+          <div className="flex max-w-2xl flex-col gap-2 md:items-end">
+            <p>{t.footer.disclaimer}</p>
+            <a href="/admin" className="text-rose-100/70 transition hover:text-rose-100">
+              {t.footer.adminLink}
+            </a>
+          </div>
         </div>
       </footer>
     </main>

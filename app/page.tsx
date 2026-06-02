@@ -258,8 +258,10 @@ function BackgroundCard({
 export default function Home() {
   const [language, setLanguage] = useState<Language>(defaultLanguage);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("#top");
   const t = translations[language];
   const contactHref = `mailto:${contactEmail}?subject=${encodeURIComponent(t.contact.mailSubject)}`;
+  const navigationItems = [{ label: t.navHome, href: "#top" }, ...t.nav];
 
   const handleLanguageChange = (nextLanguage: Language) => {
     setLanguage(nextLanguage);
@@ -267,6 +269,11 @@ export default function Home() {
 
   const closeMenu = () => {
     setMenuOpen(false);
+  };
+
+  const handleNavClick = (href: string) => {
+    setActiveSection(href);
+    closeMenu();
   };
 
   useEffect(() => {
@@ -297,12 +304,51 @@ export default function Home() {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    const sectionIds = ["top", ...t.nav.map((item) => item.href.replace("#", ""))];
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((first, second) => second.intersectionRatio - first.intersectionRatio)[0];
+
+        if (visibleEntry?.target.id) {
+          setActiveSection(`#${visibleEntry.target.id}`);
+        }
+      },
+      {
+        rootMargin: "-28% 0px -58% 0px",
+        threshold: [0.08, 0.2, 0.45, 0.7]
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    const handleScroll = () => {
+      if (window.scrollY < 90) {
+        setActiveSection("#top");
+      }
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [language, t.nav]);
+
   return (
-    <main className="min-h-screen overflow-hidden bg-night text-white">
+    <main className="min-h-screen overflow-hidden bg-night pt-[65px] text-white sm:pt-[73px]">
       <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_18%_9%,rgba(34,197,94,0.12),transparent_28%),radial-gradient(circle_at_72%_12%,rgba(244,114,182,0.13),transparent_28%),radial-gradient(circle_at_90%_28%,rgba(56,189,248,0.1),transparent_32%),linear-gradient(180deg,#020617_0%,#030712_48%,#07111f_100%)]" />
       <div className="fixed inset-0 -z-10 energy-grid opacity-30" />
 
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/[0.82] backdrop-blur-xl">
+      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-slate-950/[0.86] shadow-[0_18px_48px_rgba(2,6,23,0.34)] backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-5 sm:py-4 lg:px-8">
           <a href="#top" onClick={closeMenu} className="flex min-w-0 items-center gap-3" aria-label={t.brand}>
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-rose-200/[0.26] bg-[linear-gradient(135deg,rgba(34,197,94,0.12),rgba(244,114,182,0.13))] text-rose-100 shadow-glow sm:h-10 sm:w-10">
@@ -313,9 +359,15 @@ export default function Home() {
             </span>
           </a>
 
-          <nav className="hidden items-center gap-7 text-sm text-slate-300 lg:flex">
-            {t.nav.map((item) => (
-              <a key={item.href} href={item.href} className="nav-link">
+          <nav className="hidden items-center gap-2 text-sm text-slate-300 lg:flex" aria-label={t.sectionMenuLabel}>
+            {navigationItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                aria-current={activeSection === item.href ? "page" : undefined}
+                onClick={() => handleNavClick(item.href)}
+                className={`nav-link ${activeSection === item.href ? "nav-link-active" : ""}`}
+              >
                 {item.label}
               </a>
             ))}
@@ -351,13 +403,21 @@ export default function Home() {
             menuOpen ? "block" : "hidden"
           } border-t border-white/10 bg-slate-950/[0.96] px-4 pb-5 pt-4 shadow-2xl sm:px-5`}
         >
-          <nav className="grid gap-2" aria-label="Mobile navigation">
-            {t.nav.map((item) => (
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-rose-100/80">
+            {t.sectionMenuLabel}
+          </p>
+          <nav className="grid gap-2" aria-label={t.sectionMenuLabel}>
+            {navigationItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                onClick={closeMenu}
-                className="rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-base font-semibold text-slate-100 transition hover:border-rose-200/35 hover:bg-rose-200/10"
+                aria-current={activeSection === item.href ? "page" : undefined}
+                onClick={() => handleNavClick(item.href)}
+                className={`rounded-lg border px-4 py-3 text-base font-semibold transition ${
+                  activeSection === item.href
+                    ? "border-rose-200/40 bg-rose-200/12 text-white shadow-glow"
+                    : "border-white/10 bg-white/[0.03] text-slate-100 hover:border-rose-200/35 hover:bg-rose-200/10"
+                }`}
               >
                 {item.label}
               </a>

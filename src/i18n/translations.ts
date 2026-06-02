@@ -23,6 +23,8 @@ export const translations = {
     },
     brand: "Kraśnik Solar Flex Park",
     languageLabel: "Wybór języka",
+    navHome: "Start",
+    sectionMenuLabel: "Wybierz sekcję",
     nav: [
       { label: "O projekcie", href: "#o-projekcie" },
       { label: "Region", href: "#region" },
@@ -214,6 +216,8 @@ export const translations = {
     },
     brand: "Kraśnik Solar Flex Park",
     languageLabel: "Language selection",
+    navHome: "Start",
+    sectionMenuLabel: "Choose section",
     nav: [
       { label: "Project", href: "#o-projekcie" },
       { label: "Region", href: "#region" },

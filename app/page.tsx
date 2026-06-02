@@ -382,9 +382,9 @@ export default function Home() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,#020617_0%,rgba(2,6,23,0.94)_46%,rgba(2,6,23,0.62)_100%)] lg:w-[58%]" />
         <div className="relative mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 sm:py-14 md:gap-10 md:px-8 lg:min-h-[calc(100svh-73px)] lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:py-20">
           <div className="relative z-10">
-            <h1 className="text-[3.05rem] font-semibold leading-[1] tracking-normal text-white min-[390px]:text-[3.35rem] sm:text-7xl md:text-[5rem] lg:text-8xl">
+            <h1 className="text-[3.05rem] font-semibold leading-[1] tracking-normal text-rose-100 min-[390px]:text-[3.35rem] sm:text-7xl md:text-[5rem] lg:text-8xl">
               {t.hero.titleLineOne}
-              <span className="mt-2 block bg-gradient-to-r from-emerald-300 via-emerald-400 to-sky-300 bg-clip-text text-transparent">
+              <span className="mt-2 block bg-gradient-to-r from-pink-200 via-rose-300 to-fuchsia-200 bg-clip-text text-transparent">
                 {t.hero.titleLineTwo}
               </span>
             </h1>
